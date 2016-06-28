@@ -1,6 +1,7 @@
 var socket = io();
 
 $(document).ready(function() {
+
     $('form').submit(function() {
         var newMessageInput = $('#new-message');
         socket.emit('chat message', newMessageInput.val());
@@ -10,5 +11,6 @@ $(document).ready(function() {
 
    socket.on('chat message', function(data) {
         $('#messages').append($('<li>').text(data));
+        $('ul').scrollTop(9999); // TODO: find better solution
     });
 })
