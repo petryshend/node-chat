@@ -9,8 +9,18 @@ $(document).ready(function() {
         return false;
     });
 
-   socket.on('chat message', function(data) {
-        $('#messages').append($('<li>').text(data));
+    var $messages = $('#messages');
+
+    socket.on('chat message', function(data) {
+        $messages.append($('<li>').text(data));
         $('ul').scrollTop(9999); // TODO: find better solution
+    });
+
+    socket.on('user connected', function(data) {
+        $messages.append($('<li>', {'class': 'user-connected-li'}).text('New user connected: ' + data));
+    });
+
+    socket.on('user disconnected', function(data) {
+        $messages.append($('<li>', {'class': 'user-disconnected-li'}).text('User disconnected: ' + data));
     });
 })

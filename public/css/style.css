@@ -17,3 +17,12 @@
 #messages li:nth-child(even) {
     background-color: #dcdcdc;
 }
+
+.user-connected-li {
+    text-align: center;
+}
+
+.user-disconnected-li {
+    text-align: center;
+    color: red;
+}
