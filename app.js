@@ -14,17 +14,16 @@ mongoose.connect('mongodb://localhost/node_chat', function() {
     mongoose.connection.db.dropDatabase(function() {
         console.log('Database dropped');
         new ChatMessage({message: 'This is test message'}).save();
+        new ChatMessage({message: 'And the second one'}).save();
     });
 });
 
-
+app.set('view engine', 'jade');
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
     ChatMessage.find(function(error, doc){
-        message = doc[0].message;
-        console.log(message);
-        res.sendFile(__dirname + '/index.html');
+        res.render('index', {messages: doc});
     });
 });
 
