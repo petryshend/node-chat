@@ -12,7 +12,10 @@ $(document).ready(function() {
     var $messages = $('#messages');
 
     socket.on('chat message', function(data) {
-        $messages.append($('<li>').text(data));
+        var $messageLi = $('<li>').text(data.message);
+        var $dateTimeSpan = $('<span class="pull-right">').text(new Date(data.dateTime));
+        $messageLi.append($dateTimeSpan);
+        $messages.append($messageLi);
         $('ul').scrollTop(9999); // TODO: find better solution
     });
 

@@ -10,6 +10,7 @@ html
                 ul(id="messages")
                     each message in messages
                         li=message.message
+                            span(class="pull-right")=message.dateTime
             form
                 div(class="form-group")
                     input(id="new-message", name="new-message", class="form-control", placeholder="Your message here", autocomplete="off", required)

@@ -10,11 +10,9 @@ var ChatMessage = require('./models/ChatMessage');
 mongoose.connect('mongodb://localhost/node_chat', function() {
     console.log('Connected to the database');
 
-    // I don't know why to do so...
+    // DROP DATABASE FOR DEV
     mongoose.connection.db.dropDatabase(function() {
         console.log('Database dropped');
-        new ChatMessage({message: 'This is test message'}).save();
-        new ChatMessage({message: 'And the second one'}).save();
     });
 });
 
@@ -36,7 +34,13 @@ io.on('connection', function(socket){
     });
 
     socket.on('chat message', function(data) {
-        io.emit('chat message', data);
+        var newMessage = new ChatMessage({message: data}).save();
+        io.emit('chat message',
+            {
+                message: data,
+                dateTime: Date.now()
+            }
+        );
     })
 
 });
